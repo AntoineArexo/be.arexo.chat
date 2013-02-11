@@ -42,3 +42,5 @@
 # other
 *.iws
 
+
+/.link_to_grails_plugins
