@@ -29,6 +29,7 @@
   	<p id="errorBox" class="text-error"></p>
   	<g:textField name="message" id="sendMessage"/><br />
   	<button id="send-button"><g:message code="be.arexo.chat.messages.send-button" /></button>
+  	<g:link action="logout"><g:message code="be.arexo.chat.messages.logout" /></g:link>
   </div>
 </body>
 </html>
