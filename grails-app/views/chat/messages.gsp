@@ -12,6 +12,7 @@
 <body>
   <div class="body">
   	<h1><g:message code="be.arexo.chat.h1title" /></h1>
+  	<h3><g:message code="be.arexo.chat.messages.connectedas" />${ user?.name }</h3>
   	<h3><g:message code="be.arexo.chat.messages.title" /></h3>
   	<table id="messageTable">
   		<thead>

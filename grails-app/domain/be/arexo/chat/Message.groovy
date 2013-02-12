@@ -1,6 +1,6 @@
 package be.arexo.chat
 
-class Message {
+class Message implements Serializable {
 	String message
 		
 	static belongsTo = [user:User]

@@ -18,8 +18,8 @@ class ChatController {
 		def username = params.username
 		def u = User.findByName(username)
 		if (!u) {
-			u = new User(username: username)
-			u.save()
+			u = new User(name: username)
+			u.save(flush:true, failOnError:true)
 		}
 		session.user = u
 		redirect(action: "messages")
