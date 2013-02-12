@@ -3,17 +3,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="layout" content="main"/>
-<title>chat connection</title>
+<title><g:message code="be.arexo.chat.index.title" /></title>
 </head>
 <body>
   <div class="body">
-  	<g:if test="${flash.message }" >
-  		<div class="message" role="status" >${flash.message }</div>
-  	</g:if>
-  	<h3>Please, enter your user-name</h3>
+  	<h1><g:message code="be.arexo.chat.index.h1title" /></h1>
+  	<h3><g:message code="be.arexo.chat.index.indication" /></h3>
   	<g:form action="login">
 	  	<g:textField name="username"/>
-	  	<g:submitButton name="submit" value="Join the chat"/>
+	  	<g:submitButton name="login-button" value="${<g:message code='be.arexo.chat.index.login-button'> }"/>
   	</g:form>
   </div>
 </body>
