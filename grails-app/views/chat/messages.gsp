@@ -8,6 +8,7 @@
 	var restMessageListUrl = "${createLink(controller:'message', action:'list', absolute:true)}"
 	var restMessageSendUrl = "${createLink(controller:'message', action:'send', absolute:true)}"
 </script>
+<r:require module="chat"/>
 </head>
 <body>
   <div class="body">
@@ -25,9 +26,8 @@
  			
 		</tbody>
   	</table>
-  	<g:form action="send">
-  		<g:textField name="message"/><br />
-  	</g:form>
+  	<p id="errorBox" class="text-error"></p>
+  	<g:textField name="message" id="sendMessage"/><br />
   	<button id="send-button"><g:message code="be.arexo.chat.messages.send-button" /></button>
   </div>
 </body>
