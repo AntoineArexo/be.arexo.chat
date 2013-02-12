@@ -1,16 +1,16 @@
 // Send message
-$("#send-button").click(function(event) {
+function sendMessage(){
 	// Hide the error box
 	$("#errorBox").hide();
 	
 	// Ajax request
 	$.ajax({
 		url: restMessageSendUrl,
-		type: POST,
-		data: "message="+$("#sendMessage").value,
+		type: 'POST',
+		data: "message="+$("#sendMessage").val(),
 		success: function(event) {
 			// Clean form
-			$("#sendMessage").value("");
+			$("#sendMessage").val("");
 			// Display messages received
 			displayMessages(event);
 		},
@@ -23,13 +23,13 @@ $("#send-button").click(function(event) {
 			$("#errorBox").show();
 		}
 	});
-});
+}
 
 // Refresh messages list
 function refreshMessages() {
 	$.ajax({
 		url: restMessageListUrl,
-		dataType: JSON,
+		dataType: 'json',
 		success: function(event) {
 			displayMessages(event);
 		},
@@ -37,7 +37,7 @@ function refreshMessages() {
 			
 		},
 		error: function(event) {
-			
+			console.log(event.message);
 		}
 	});
 }
@@ -47,10 +47,9 @@ function displayMessages(messages) {
 	// Remove messages from html
 	$('#messageTable tbody').html('');
 	// Fill the table messages
-	$.each(messages, function(message){
-		var line = $('#messageTable tbody').add('tr');
-		line.add('td').add(message.username);
-		line.add('td').add(message.message);
+	$.each(messages, function(index, message){
+		var line = $('#messageTable ').append('<tr><td>'+message.username+'</td><td>'+message.message+'</td></tr>');
+		
 	});
 }
 
@@ -60,4 +59,7 @@ var timerPolingMessage = $.timer(function () {refreshMessages();}, 2000, false);
 $(document).ready(function(){
 	// Run the timer when loaded
 	timerPolingMessage.play(true);
+	$("#send-button").click(function(event) {
+		sendMessage();
+	});
 });
