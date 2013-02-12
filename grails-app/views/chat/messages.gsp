@@ -26,9 +26,9 @@
 		</tbody>
   	</table>
   	<g:form action="send">
-  		<g:textField name="message"/>
-  		<button id="send-button" value="${message(code : 'be.arexo.chat.messages.send-button')}" ><g:message code="be.arexo.chat.messages.send-button" /></button>
+  		<g:textField name="message"/><br />
   	</g:form>
+  	<button id="send-button"><g:message code="be.arexo.chat.messages.send-button" /></button>
   </div>
 </body>
 </html>
