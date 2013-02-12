@@ -17,12 +17,7 @@
  			</tr>
  		</thead>
  		<tbody>
- 			<g:each in="${messagesInstanceList }" var="messagesInstance">
- 				<tr>
- 					<td>${fieldValue(bean : messagesInstance, field : "message") }</td>
- 					<td>${fieldValue(bean : messagesInstance, field : "username") }</td>
- 				</tr>
- 			</g:each>
+ 			
 		</tbody>
   	</table>
   </div>
