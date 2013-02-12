@@ -4,6 +4,11 @@ import grails.converters.JSON;
 
 class MessageController {
 	def list() {
+		def user = session.user
+		if(!user){
+			response.status = 400
+			return render ('')
+		}
 		render Message.list() as JSON		
 	}
 	def send() {
@@ -14,8 +19,11 @@ class MessageController {
 			return render ('')
 		}
 		
-		def messageToSend = new Message(message : message, user_id : user.id)
+		def messageToSend = new Message(message : message)
 		user.addToMessages(messageToSend)
-		messageToSend.save()
+		messageToSend.save(flush:true)
+		
+		return list()
+		
 	}
 }

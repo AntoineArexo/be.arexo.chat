@@ -25,6 +25,10 @@
  			
 		</tbody>
   	</table>
+  	<g:form action="send">
+  		<g:textField name="message"/>
+  		<%= link(action:'send',controller:'message') { message(code : 'be.arexo.chat.messages.send-button') }%>
+  	</g:form>
   </div>
 </body>
 </html>
