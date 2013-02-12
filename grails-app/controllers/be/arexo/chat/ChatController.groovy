@@ -24,4 +24,9 @@ class ChatController {
 		session.user = u
 		redirect(action: "messages")
 	}
+	
+	def logout() {
+		session.user = null
+		redirect(action: "index")
+	}
 }
