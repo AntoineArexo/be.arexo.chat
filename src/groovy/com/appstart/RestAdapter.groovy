@@ -5,7 +5,8 @@ import grails.converters.JSON
 import org.codehaus.groovy.grails.plugins.web.api.ControllersApi
 import org.codehaus.groovy.grails.web.metaclass.RenderDynamicMethod
 
-import com.jondejong.maprest.MaprestFormat;
+
+
 
 class RestAdapter {
 
@@ -172,3 +173,5 @@ class RestAdapter {
         }
     }
 }
+
+
