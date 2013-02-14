@@ -12,11 +12,20 @@
 	<as:emberTemplate name="posts">
 		<table>
 		{{#each post in controller}}
-			<tr><td>{{post.title}}</td><td> </td></tr>
+			<tr><td>{{post.title}}</td><td>{{#linkTo "post" post}}Details{{/linkTo}} </td></tr>
 		{{/each}}
 		</table>
 	</as:emberTemplate>
+	<as:emberTemplate name="post">
+		ghfdgsdfg
+	</as:emberTemplate>
 
+	
+	
+	
+	
+	
+	
 	
 </head>
 <body>

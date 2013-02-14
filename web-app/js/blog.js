@@ -4,7 +4,11 @@ BlogApp = Ember.Application.create({
 
 BlogApp.ApplicationController = Ember.Controller.extend();
 BlogApp.ApplicationView = Ember.View.extend();
-
+BlogApp.IndexRoute = Ember.Route.extend({
+	redirect:function(){
+		this.transitionTo('posts');
+	}
+});
 
 BlogApp.Store = DS.Store.extend({
 	revision: 11,
@@ -22,41 +26,33 @@ BlogApp.Post = DS.Model.extend({
 
 
 BlogApp.Router.map(function(){
-	this.resource('posts'/*, function(){
-		this.route('post', { path: '/:post_id' });
-	}*/);
+	this.resource('posts', function(){
+		this.resource('post', {path:':post_id'});
+	});
 	//this.resource('post', { path: '/posts/:post_id' });
 	
 });
 
-BlogApp.IndexRoute = Ember.Route.extend({
-	redirect:function(){
-		this.transitionTo('posts');
-	}
-});
+
 
 BlogApp.PostsRoute = Ember.Route.extend({
 	model : function(params){
 		return BlogApp.Post.find();
 	}
 });
-
-/*BlogApp.PostIndexRoute = Ember.Route.extend({
-	model : function(params){
-		return BlogApp.Post.find(params.post_id);
-	}
-});*/
-
-
-BlogApp.PostsController = Ember.ArrayController.extend({
-	
-});
-
-//BlogApp.PostIndexController = Ember.ObjectController.extend();
-
+BlogApp.PostsController = Ember.ArrayController.extend();
 BlogApp.PostsView = Ember.View.extend();
 
-//BlogApp.PostIndexView = Ember.View.extend();
+
+
+BlogApp.PostRoute = Ember.Route.extend({
+	/*model : function(params){
+		console.log('in post route, with post_id '+params.post_id);
+		return BlogApp.Post.find(params.post_id);
+	}*/
+});
+BlogApp.PostController = Ember.ObjectController.extend();
+BlogApp.PostView = Ember.View.extend();
 
 
 
