@@ -4,8 +4,8 @@ import grails.converters.JSON
 class CommentController {
 
     def show() {
-        if (param.id && Comment.exists(param.id)) {
-            def c = Comment.findById(param.id)
+        if (params.id && Comment.exists(params.id)) {
+            def c = Comment.findById(params.id)
             render c as JSON
         }
         else {
