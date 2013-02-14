@@ -1,6 +1,7 @@
 package be.arexo.chat
 
 import grails.converters.JSON
+
 class CommentController {
 
     def show() {
@@ -17,7 +18,7 @@ class CommentController {
         if (params.id && Comment.exists(params.id)) {
             def c = Comment.findById(params.id)
             c.properties = params
-            c.save
+            c.save()
             render c as JSON
         }
     }

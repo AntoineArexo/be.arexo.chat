@@ -16,7 +16,7 @@ modules = {
 		defaultBundle false
 		resource url:'js/ember/handlebars.js'
 		resource url:'js/ember/ember.js'
-		//resource url:'js/ember/ember.data.js'
+		resource url:'js/ember/ember.data.js'
 	}
 	
 	
