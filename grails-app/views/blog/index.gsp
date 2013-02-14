@@ -9,6 +9,8 @@
 		{{outlet}}
 	</script>
 	
+
+	
 	<as:emberTemplate name="posts">
 		<table>
 		{{#each post in controller}}
