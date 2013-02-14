@@ -29,10 +29,10 @@ class BootStrap {
                 
                 // blog's data
                 def p = new Post(title: "First post !", text: "I love my new blog !")
-                p.save()
+                p.save(flush:true, failOnError:true)
                 def c = new Comment(text: "Super ton blog !")
                 p.addToComments(c)
-                c.save()
+                c.save(flush:true, failOnError:true)
 	}
     def destroy = {
     }

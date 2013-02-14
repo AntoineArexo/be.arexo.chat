@@ -15,16 +15,17 @@ BlogApp.Store = DS.Store.extend({
 
 BlogApp.Post = DS.Model.extend({
 	title : DS.attr('string'),
-	text : DS.attr('string'),
-	postTime : DS.attr('date')
+	text : DS.attr('string')/*,
+	postTime : DS.attr('date')*/
 });
 
 
 
 BlogApp.Router.map(function(){
-	this.resource('posts', function(){
-		this.resource('post', { path: ':post_id' });
-	});
+	this.resource('posts'/*, function(){
+		this.route('post', { path: '/:post_id' });
+	}*/);
+	//this.resource('post', { path: '/posts/:post_id' });
 	
 });
 
@@ -40,22 +41,22 @@ BlogApp.PostsRoute = Ember.Route.extend({
 	}
 });
 
-BlogApp.PostRoute = Ember.Route.extend({
+/*BlogApp.PostIndexRoute = Ember.Route.extend({
 	model : function(params){
 		return BlogApp.Post.find(params.post_id);
 	}
-});
+});*/
 
 
 BlogApp.PostsController = Ember.ArrayController.extend({
 	
 });
 
-BlogApp.PostController = Ember.ObjectController.extend();
+//BlogApp.PostIndexController = Ember.ObjectController.extend();
 
 BlogApp.PostsView = Ember.View.extend();
 
-BlogApp.PostView = Ember.View.extend();
+//BlogApp.PostIndexView = Ember.View.extend();
 
 
 

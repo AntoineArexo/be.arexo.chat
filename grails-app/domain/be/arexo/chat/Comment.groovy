@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 class Comment {
     
     String text
-	DateTime postTime
+	DateTime commentTime = new DateTime()
     
     static belongsTo = [post:Post]
 

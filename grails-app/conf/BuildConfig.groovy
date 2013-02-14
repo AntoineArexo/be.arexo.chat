@@ -52,6 +52,9 @@ grails.project.dependency.resolution = {
 		
 		compile ":joda-time:1.4"
 
+		runtime ":maprest:0.1.0"
+		
+		
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"

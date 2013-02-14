@@ -1,5 +1,7 @@
 package be.arexo.chat
 
+import com.appstart.RestAdapter;
+
 import grails.converters.JSON
 
 class PostController {
@@ -11,7 +13,11 @@ class PostController {
 		}
 		else{
 			def all = Post.list()
-			render all as JSON
+			//render all as JSON
+			
+			def restAdapter = new RestAdapter()
+			restAdapter.renderMapListRest(all,  jsonFormat, "posts")
+			
 		}
 	}
 	

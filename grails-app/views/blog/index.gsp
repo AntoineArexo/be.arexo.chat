@@ -10,10 +10,13 @@
 	</script>
 	
 	<as:emberTemplate name="posts">
+		<table>
 		{{#each post in controller}}
-			{{post.title}}
+			<tr><td>{{post.title}}</td><td> </td></tr>
 		{{/each}}
+		</table>
 	</as:emberTemplate>
+
 	
 </head>
 <body>
