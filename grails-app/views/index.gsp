@@ -3,7 +3,6 @@
 	<head>
 		<meta name="layout" content="main"/>
 		<title>Welcome to Grails</title>
-		<r:require module="ember"/>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
