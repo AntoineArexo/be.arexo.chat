@@ -7,15 +7,16 @@ import grails.converters.JSON
 class PostController {
 	def show(){
 		def id = params.id
+		def restAdapter = new RestAdapter()
 		if(id && Post.exists(id)){
 			def post = Post.get(id)	
-			render post as JSON
+			restAdapter.renderMaprest(post, jsonFormat, "post")
 		}
 		else{
 			def all = Post.list()
 			//render all as JSON
 			
-			def restAdapter = new RestAdapter()
+			
 			restAdapter.renderMapListRest(all,  jsonFormat, "posts")
 			
 		}
