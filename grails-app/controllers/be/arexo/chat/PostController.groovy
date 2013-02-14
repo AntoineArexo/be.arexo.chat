@@ -8,7 +8,7 @@ class PostController {
 	def show(){
 		def id = params.id
 		if(id && Post.exists(id)){
-			def post = Post.findByName(id)	
+			def post = Post.get(id)	
 			render post as JSON
 		}
 		else{
