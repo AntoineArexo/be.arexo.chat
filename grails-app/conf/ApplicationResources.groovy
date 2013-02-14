@@ -23,7 +23,7 @@ modules = {
 	blog {
 		dependsOn 'ember'
 		defaultBundle false
-		resource url:'js/bolg.js'
+		resource url:'js/blog.js'
 	}
 	
 }
