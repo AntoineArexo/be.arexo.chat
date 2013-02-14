@@ -10,10 +10,8 @@ class UrlMappings {
 		"/"(controller: 'chat', action: 'index')
 		"500"(view:'/error')
 		
-		"/post/$id?"(resource:"post"){
-		}
+		"/post/$id?"(resource:"post")
 		
-		"/comment/$id?"(resource:"comment"){
-		}
+		"/comment/$id?"(resource:"comment")
 	}
 }
