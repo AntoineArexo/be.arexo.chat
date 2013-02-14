@@ -14,6 +14,5 @@
 				<li>An error has occurred</li>
 			</ul>
 		</g:else>
-		
 	</body>
 </html>

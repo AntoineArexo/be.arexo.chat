@@ -10,6 +10,7 @@ modules = {
 		dependsOn 'jquery, jqueryTimer'
 		resource url:'js/chat.js'
 	}
+
 	
 	ember {
 		dependsOn 'jquery'
