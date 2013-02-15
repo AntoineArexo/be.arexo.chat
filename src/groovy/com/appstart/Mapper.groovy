@@ -8,14 +8,6 @@ class Mapper {
         if (o instanceof Collection) {
             map[o[0].getRootName(true, options)] = o.collect{ 
                 dependencies = mergeMap(dependencies, it.mapDependencies(true, options))
-                
-                it.mapDependencies(true, options).each{key, value -> 
-                    dependencies[key] = dependencies[key]+value.findAll{ depValue ->
-                        return !dependencies[key].contains(depValue)
-                    }
-                }
-                
-                
                 it.transformToMap(true, options)
             }
         }
