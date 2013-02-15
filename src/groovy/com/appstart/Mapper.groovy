@@ -1,7 +1,7 @@
 package com.appstart
 
 class Mapper {
-    def renderMap(Object o, String root = null) {
+    def getMap(Object o, Map options) {
         def map
         
         if (o instanceof Collection) {
@@ -15,8 +15,8 @@ class Mapper {
             map = parseToMap(map)
         }
         
-        if (root) {
-            map = ["${root}":map]
+        if (options[MapperOption.root]) {
+            map = ["${options[MapperOption.root]}":map]
         }
         
         return map
@@ -26,15 +26,17 @@ class Mapper {
         if (map instanceof Collection) {
             return map.collect{parseToMap(it)}
         }
-        
-        def newMap = [:]
-        map.each{key, val ->
-            if (val instanceof Map || val instanceof Collection) {
-                val = parseToMap(val)
+        if (map instanceof Map) {
+            def newMap = [:]
+            map.each{key, val ->
+                if (val instanceof Map || val instanceof Collection) {
+                    val = parseToMap(val)
+                }
+                newMap[key] = val
             }
-            newMap[key] = val
+            return newMap
         }
-        return newMap
+        return map;
     }
 }
 
