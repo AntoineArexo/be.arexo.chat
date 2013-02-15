@@ -1,7 +1,6 @@
 package be.arexo.chat
 
 import com.appstart.Mapper
-import com.appstart.MapperOption
 import grails.converters.JSON
 
 class TestMapperController {

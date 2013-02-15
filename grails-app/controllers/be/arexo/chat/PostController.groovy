@@ -1,5 +1,6 @@
 package be.arexo.chat
 
+import com.appstart.Mapper
 import com.appstart.MaprestFormat;
 import com.appstart.RestAdapter;
 
@@ -11,14 +12,16 @@ class PostController {
 		def restAdapter = new RestAdapter()
 		if(id && Post.exists(id)){
 			def post = Post.get(id)	
-			restAdapter.renderMaprest(post, MaprestFormat.JSON, "post")
+		//	restAdapter.renderMaprest(post, MaprestFormat.JSON, "post")
+            render Mapper.getMap(post, [:]) as JSON
 		}
 		else{
 			def all = Post.list()
 			//render all as JSON
 			
-			
-			restAdapter.renderMapListRest(all,  MaprestFormat.JSON, "posts")
+
+		//	restAdapter.renderMapListRest(all,  MaprestFormat.JSON, "posts")
+            render Mapper.getMap(all, [:]) as JSON
 			
 		}
 	}
