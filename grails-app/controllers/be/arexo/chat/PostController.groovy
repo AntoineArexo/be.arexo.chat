@@ -37,10 +37,15 @@ class PostController {
 	}
 	
 	def save(){
+		def restAdapter = new RestAdapter()
 		println "params : "+params
 		def p = new Post(params.post)
+		if(!p.validate()){
+			response.status = 422
+			return render(p.errors as JSON)
+		}
 		if(p.save()){
-			def restAdapter = new RestAdapter()
+			
 			restAdapter.renderMaprest(p, MaprestFormat.JSON, "post")
 		}
 	}
