@@ -24,7 +24,8 @@ class Post {
         def getRootName(Boolean plurals, Map options) {
             return plurals?"posts":"post"
         }
-	def mapDependecies(){
-            
+	def mapDependencies(Boolean plurals, Map options){
+            if (plurals) {return [:]}
+            return [(Comment) : comments.collect{it.id}]
         }
 }
