@@ -27,19 +27,26 @@ class PostController {
 		def id = params.id
 		if(id && Post.exists(id)){
 			def p = Post.get(id)
-			p.title = params.title
-			p.text = params.text
+			p.properties = params.post;
 			
 			if(p.save()){
-				render p as JSON
+				def restAdapter = new RestAdapter()
+				restAdapter.renderMaprest(p, MaprestFormat.JSON, "post")
 			}	
 		}
 	}
 	
 	def save(){
-		def p = new Post(params.title, params.text)
+		def restAdapter = new RestAdapter()
+		println "params : "+params
+		def p = new Post(params.post)
+		if(!p.validate()){
+			response.status = 422
+			return render(p.errors as JSON)
+		}
 		if(p.save()){
-			render p as JSON
+			
+			restAdapter.renderMaprest(p, MaprestFormat.JSON, "post")
 		}
 	}
 	
@@ -47,8 +54,9 @@ class PostController {
 		def id = params.id
 		if(id && Post.exists(id)){
 			def p = Post.get(id)
-			
+		
 			p.delete(flush:true)
+			render([] as JSON)
 		}
 	}
 }
