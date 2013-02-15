@@ -13,8 +13,18 @@ class Post {
     static constraints = {
     }
 	
-	def transformToMap(){
-		[id:id,"title":title, text:text, comments:comments.collect{it.id}]
+	def transformToMap(Boolean plurals, Map options){
+            if (plurals) {
+                [id:id,"title":title, text:text]
+            }
+            else {
+                [id:id,"title":title, text:text, comments:comments.collect{it.id}]
+            }
 	}
-	
+        def getRootName(Boolean plurals, Map options) {
+            return plurals?"posts":"post"
+        }
+	def mapDependecies(){
+            
+        }
 }

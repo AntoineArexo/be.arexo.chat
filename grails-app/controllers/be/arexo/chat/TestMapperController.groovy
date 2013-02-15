@@ -11,14 +11,14 @@ class TestMapperController {
 		def mapper = new Mapper()
 		if(id && Post.exists(id)){
 			def post = Post.get(id)	
-			 render mapper.getMap(post, [(MapperOption.root):"post"]) as JSON
+			 render mapper.getMap(post, [:]) as JSON
 		}
 		else{
 			def all = Post.list()
 			//render all as JSON
 			
 			
-            render mapper.getMap(all, [(MapperOption.root):"posts"]) as JSON
+            render mapper.getMap(all, [:]) as JSON
 			
 		}
 	}
