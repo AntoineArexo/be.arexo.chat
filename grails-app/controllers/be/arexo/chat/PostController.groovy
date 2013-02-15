@@ -1,24 +1,20 @@
 package be.arexo.chat
 
-import com.appstart.MaprestFormat;
-import com.appstart.RestAdapter;
+import com.appstart.Mapper
 
 import grails.converters.JSON
 
 class PostController {
 	def show(){
 		def id = params.id
-		def restAdapter = new RestAdapter()
 		if(id && Post.exists(id)){
-			def post = Post.get(id)	
-			restAdapter.renderMaprest(post, MaprestFormat.JSON, "post")
+			def post = Post.get(id)
+            render Mapper.getMap(post, [:]) as JSON
 		}
 		else{
 			def all = Post.list()
 			//render all as JSON
-			
-			
-			restAdapter.renderMapListRest(all,  MaprestFormat.JSON, "posts")
+            render Mapper.getMap(all, [:]) as JSON
 			
 		}
 	}
@@ -30,14 +26,12 @@ class PostController {
 			p.properties = params.post;
 			
 			if(p.save()){
-				def restAdapter = new RestAdapter()
-				restAdapter.renderMaprest(p, MaprestFormat.JSON, "post")
+                render Mapper.getMap(p, [:]) as JSON
 			}	
 		}
 	}
 	
 	def save(){
-		def restAdapter = new RestAdapter()
 		println "params : "+params
 		def p = new Post(params.post)
 		if(!p.validate()){
@@ -45,8 +39,7 @@ class PostController {
 			return render(p.errors as JSON)
 		}
 		if(p.save()){
-			
-			restAdapter.renderMaprest(p, MaprestFormat.JSON, "post")
+            render Mapper.getMap(p, [:]) as JSON
 		}
 	}
 	
