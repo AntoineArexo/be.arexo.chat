@@ -29,7 +29,8 @@ class Mapper {
         
         return map
     }
-    
+
+    // This method is supposed to merge map one with map two
     static private def mergeMap(Map one, Map two) {
         two.each{key, value -> 
             if (one[key]) {
