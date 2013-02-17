@@ -1,3 +1,9 @@
+Ember.Handlebars.registerHelper('formatDate', function(path, options) {
+    var rawDate = this.get(path);
+    return new Date(rawDate).toLocaleString(); // or whatever format you need...
+});
+
+
 BlogApp = Ember.Application.create({
 	LOG_TRANSITIONS: true, 
 	LOG_BINDINGS:true
@@ -20,8 +26,17 @@ BlogApp.Store = DS.Store.extend({
 
 BlogApp.Post = DS.Model.extend({
 	title : DS.attr('string'),
-	text : DS.attr('string')/*,
-	postTime : DS.attr('date')*/
+	text : DS.attr('string'),
+	postTime : DS.attr('date'),
+	postTimeStr : function(){
+		return $.format.date(new Date(this.get('postTime')), 'dd/MM/yy');
+	}.property('postTime'),
+	becameError:function(){
+		console.log("Error on Post");
+	},
+	becameInvalid:function(errors){
+		console.log("Invalid on Post "+errors.errors.toString());
+	}
 });
 
 
@@ -75,6 +90,7 @@ BlogApp.PostsNewRoute = Ember.Route.extend({
 	  },
 
 	  setupController: function(controller) {
+		  
 	    controller.startEditing();
 	  },
 
@@ -84,10 +100,26 @@ BlogApp.PostsNewRoute = Ember.Route.extend({
 	  }
 });
 BlogApp.PostsNewController = Ember.ObjectController.extend({
+	
+	hasError:false,
+	saving:false,
+	errors:[],
 	startEditing: function() {
 	    // create a new record on a local transaction
-	    this.transaction = this.get('store').transaction();
-	    this.set('content', this.transaction.createRecord(BlogApp.Post, {}));
+		
+		
+			console.log("PostController new transaction");
+			 this.transaction = this.get('store').transaction();
+			 if(this.get('content')){
+				 this.set('content', this.transaction.createRecord(BlogApp.Post, {'title':this.get('content.title'), 'text':this.get('content.text')}));
+					
+			 }else{
+				 this.set('content', this.transaction.createRecord(BlogApp.Post, {}));
+						 
+			 }
+			 
+			 
+	   
 	  },
 
 	  stopEditing: function() {
@@ -104,12 +136,34 @@ BlogApp.PostsNewController = Ember.ObjectController.extend({
 		      this.transitionTo('post', this.get('content'));
 		    }
 		  }.observes('content.id'),
+    recordOnInvalid:function(){
+    	console.log('record valid changed saving '+this.get('saving')+" and content saving "+this.get('content.isSaving'));
+    	if(this.get('saving') == false || this.get('content.isSaving') == false){
+    		
+    		return;
+    	}
+    	
+    	if(!this.get('content.isValid')){
+    		this.set('hasError', true);
+    		console.log("record invalid on controller" + this.get('content.errors').length);
+    		//this.get('content').deleteRecord();
+    		this.get('content').get('store').unloadRecord(this.get('content'));
+  	      
+    		this.startEditing();
+    	}else{
+    		this.set('hasError', false);
+    	}
+    	this.set('saving', false);
+    }.observes('content.isValid'),
+    
 	save: function() {
 	    // commit and then clear the local transaction
+		this.set('saving',true);
 	    this.transaction.commit();
 	    this.transaction = null;
 	  },
 	cancel: function() {
+		this.set('hasError', false);
 		this.stopEditing();
 	    this.transitionTo('posts');
 	}

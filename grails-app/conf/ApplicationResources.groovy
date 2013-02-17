@@ -6,6 +6,11 @@ modules = {
 		dependsOn 'jquery'
 		resource url:'js/jquery.timer.js'
 	}
+	
+	jqueryDateFormat {
+		dependsOn 'jquery'
+		resource url:'js/jquery/jquery.dateformat.js'
+	}
 	chat {
 		dependsOn 'jquery, jqueryTimer'
 		resource url:'js/chat.js'
@@ -22,7 +27,7 @@ modules = {
 	
 	
 	blog {
-		dependsOn 'ember'
+		dependsOn 'ember, jqueryDateFormat'
 		defaultBundle false
 		resource url:'js/blog.js'
 	}

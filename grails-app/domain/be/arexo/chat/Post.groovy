@@ -14,7 +14,7 @@ class Post {
     }
 	
 	def transformToMap(){
-		[id:id,"title":title, text:text]
+		[id:id,"title":title, text:text, post_time:postTime]
 	}
 	
 }
