@@ -33,6 +33,15 @@ class BootStrap {
                 def c = new Comment(text: "Super ton blog !")
                 p.addToComments(c)
                 c.save(flush:true, failOnError:true)
+                c = new Comment(text: "Moi j'aime pas !")
+                p.addToComments(c)
+                c.save(flush:true, failOnError:true)
+                
+                p = new Post(title: "Second post !", text: "I love my poney !")
+                p.save(flush:true, failOnError:true)
+                c = new Comment(text: "Super ton poney !")
+                p.addToComments(c)
+                c.save(flush:true, failOnError:true)
 	}
     def destroy = {
     }

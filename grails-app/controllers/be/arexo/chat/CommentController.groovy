@@ -1,37 +1,47 @@
 package be.arexo.chat
 
 import grails.converters.JSON
+import com.appstart.Mapper
 
 class CommentController {
 
     def show() {
-        if (params.id && Comment.exists(params.id)) {
-            def c = Comment.findById(params.id)
-            render c as JSON
+        def id = params.id
+        if (id && Comment.exists(id)) {
+            def c = Comment.get(id)
+            render Mapper.getMap(c, [:]) as JSON
         }
         else {
             def all = Comment.list()
-            render all as JSON
+            render Mapper.getMap(all, [:]) as JSON
         }
     }
     def update() {
-        if (params.id && Comment.exists(params.id)) {
-            def c = Comment.findById(params.id)
+        def id = params.id
+        if (id && Comment.exists(id)) {
+            def c = Comment.get(id)
             c.properties = params
-            c.save()
-            render c as JSON
+            if (c.save()) {
+                render Mapper.getMap(c, [:]) as JSON
+            }
         }
     }
     def delete() {
-        if (params.id && Comment.exists(params.id)) {
-            def c = Comment.findById(params.id)
-            c.delete()
+        def id = params.id
+        if (id && Comment.exists(id)) {
+            def c = Comment.findById(id)
+            c.delete(flush:true)
+            render [] as JSON
         }
     }
     def save() {
         def c = new Comment(params)
+        if (!c.validate()) {
+            responce.status = 422
+            return render(c.errors as JSON)
+        }
         if (c.save()) {
-            render c as JSON
+            render Mapper.getMap(c, [:]) as JSON
         }
         else {
             render c.errors as JSON

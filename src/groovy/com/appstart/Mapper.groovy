@@ -1,40 +1,47 @@
 package com.appstart
 
 class Mapper {
-    def renderMap(Object o, String root = null) {
-        def map
+    static def getMap(Object o, Map options) {
+        def map = [:]
+        def dependencies = [:]
         
+        // We collect map of element(s)
         if (o instanceof Collection) {
-            map = o.collect{it ->
-                def tmp = it.transformToMap()
-                return parseToMap(tmp)
+            map[o[0].getRootName(true, options)] = o.collect{
+                // We save the dependencies of each element
+                dependencies = mergeMap(dependencies, it.mapDependencies(true, options))
+                // We collect map of each element
+                it.transformToMap(true, options)
             }
         }
         else {
-            map = o.transformToMap()
-            map = parseToMap(map)
+            // If only one element, we get the map and dependencies
+            map[o.getRootName(false, options)] = o.transformToMap(false, options)
+            dependencies = mergeMap(dependencies, o.mapDependencies(false, options))
         }
         
-        if (root) {
-            map = ["${root}":map]
+        // We collect map of dependencies
+        dependencies.each{key, value ->
+            def tmpMap = getMap(key.getAll(value), options)
+            // We add map of dependencies to the current map
+            map = mergeMap(map, tmpMap)
         }
         
         return map
     }
-    
-    def parseToMap(map) {
-        if (map instanceof Collection) {
-            return map.collect{parseToMap(it)}
-        }
-        
-        def newMap = [:]
-        map.each{key, val ->
-            if (val instanceof Map || val instanceof Collection) {
-                val = parseToMap(val)
+
+    // This method is supposed to merge map one with map two
+    static private def mergeMap(Map one, Map two) {
+        two.each{key, value -> 
+            if (one[key]) {
+                one[key] = one[key]+value.findAll{ depValue ->
+                    return !one[key].contains(depValue)
+                }
             }
-            newMap[key] = val
+            else {
+                one[key] = value
+            }
         }
-        return newMap
+        return one;
     }
 }
-
