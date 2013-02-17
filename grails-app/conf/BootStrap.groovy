@@ -18,6 +18,13 @@ class BootStrap {
 			returnArray['username'] = it.user.name
 			return returnArray
 		}
+		JSON.registerObjectMarshaller(Post){
+			def returnArray = [:]
+			returnArray['id'] = it.id
+			returnArray['title'] = it.title
+			returnArray['text'] = it.text
+			return returnArray
+		}
 	}
 
 	private setDevData() {

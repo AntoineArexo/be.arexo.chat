@@ -9,12 +9,12 @@ class PostController {
 		def id = params.id
 		if(id && Post.exists(id)){
 			def post = Post.get(id)
-            render Mapper.getMap(post, [:]) as JSON
+            render post as JSON
 		}
 		else{
-			def all = Post.list()
+			def all = Post.findAll()
 			//render all as JSON
-            render Mapper.getMap(all, [:]) as JSON
+            render all as JSON
 		}
 	}
 	
@@ -25,7 +25,7 @@ class PostController {
 			p.properties = params;
 			
 			if(p.save()){
-                render Mapper.getMap(p, [:]) as JSON
+                render p as JSON
 			}	
 		}
 	}
@@ -35,10 +35,10 @@ class PostController {
 		def p = new Post(params)
 		if(!p.validate()){
 			response.status = 422
-			return render(p.errors as JSON)
+			return p.errors as JSON
 		}
 		if(p.save()){
-            render Mapper.getMap(p, [:]) as JSON
+            render p as JSON
 		}
 	}
 	
