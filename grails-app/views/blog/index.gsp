@@ -14,7 +14,7 @@
 	<as:emberTemplate name="posts">
 		<table>
 		{{#each post in controller}}
-			<tr><td>{{post.title}}</td><td>{{post.postTimeStr}}</td><td>{{#linkTo post post}}Details{{/linkTo}} </td></tr>
+			<tr><td>{{post.title}}</td><td>{{#linkTo post post}}Details{{/linkTo}} </td></tr>
 		{{/each}}
 		</table>
 		<br />
@@ -27,20 +27,17 @@
 		<br />
 		{{#linkTo posts}}Back to posts{{/linkTo}}
 		<br />
-		{{#linkTo posts.edit content}}Edit{{/linkTo}}
-		<br />
 		
+		<br />
+		{{#linkTo posts.edit content}}Update{{/linkTo}}
 		<a {{action destroyRecord}}>Remove</a>
 	</as:emberTemplate>
+
+	
 	
 	<as:emberTemplate name="posts/new">
 		<h2>New post</h2>
-		{{#if content.isSaving}}
-			<i>Saving record...</i>
-		{{/if}}
-		{{#if hasError}}
-			<p>Has errors...</p>
-		{{/if}}
+		
 		
 		<form {{action save on="submit"}}>
 			<legend>Add a new post</legend>
@@ -74,12 +71,6 @@
     		<button class="btn" {{action cancel}}>Cancel</button>
 		</form>
 	</as:emberTemplate>
-
-	
-	
-	
-	
-	
 	
 	
 </head>
